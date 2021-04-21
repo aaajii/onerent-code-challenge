@@ -39,7 +39,7 @@ const server = new ApolloServer({
       userId:
         req && req.headers.authorization
           ? getUserId(req)
-          : null
+          : 3
     };
   },
   subscriptions: {
