@@ -17,7 +17,7 @@ model Property {
   city        String
   state       String
   zip         Int
-  renters       Rent[]
+  renters     Rent[]
 }
 
 model User {

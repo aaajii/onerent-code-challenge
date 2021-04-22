@@ -1,5 +1,5 @@
 import React from "react";
-import Link from "./Link";
+import Link from "./Property";
 import { useQuery, gql } from "@apollo/client";
 import { LINKS_PER_PAGE } from "../constants";
 import { useHistory } from "react-router";
@@ -8,11 +8,11 @@ export const FEED_QUERY = gql`
     {
         feed {
             id
-            links {
+            properties {
                 id
-                createdAt
-                url
-                description
+                street
+                city
+                state
                 postedBy {
                     id
                     name

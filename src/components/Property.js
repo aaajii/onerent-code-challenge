@@ -2,7 +2,7 @@ import { AUTH_TOKEN, LINKS_PER_PAGE } from "../constants";
 import { timeDifferenceForDate } from "../utils";
 import React from "react";
 import { gql, useMutation } from "@apollo/client";
-import { FEED_QUERY } from "./LinkList";
+import { FEED_QUERY } from "./PropertyList";
 
 const VOTE_MUTATION = gql`
     mutation VoteMutation($linkId: ID!) {

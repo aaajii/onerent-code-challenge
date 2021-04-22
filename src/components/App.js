@@ -1,7 +1,7 @@
 import React from 'react';
-import CreateLink from './CreateLink';
+import CreateLink from './CreateProperty';
 import Header from './Header';
-import LinkList from './LinkList';
+import LinkList from './PropertyList';
 import Login from "./Login";
 import Search from "./Search";
 import { Switch, Route } from 'react-router-dom';

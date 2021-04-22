@@ -14,7 +14,6 @@ const Header = () => {
           new
         </Link>
         <div className="ml1">|</div>
-        <div className="ml1">|</div>
         <Link to="/search" className="ml1 no-underline black">
           search
         </Link>
