@@ -50,7 +50,7 @@ type Property {
   city: String!
   state: String!
   zip: Int!
-  renters: [Rent!]
+  renters: [Rent!]!
   createdAt: DateTime!
 }
 

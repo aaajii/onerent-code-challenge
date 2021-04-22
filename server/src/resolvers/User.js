@@ -1,7 +1,7 @@
 function rents(parent, args, context) {
-  return context.prisma.rent
-    .findMany({ where: { userId: parent.id } })
-    .property();
+  return context.prisma.user
+    .findUnique({ where: { id: parent.id } })
+    .rents();
 }
 
 module.exports = {
