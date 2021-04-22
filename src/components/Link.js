@@ -1,24 +1,39 @@
-import { AUTH_TOKEN, LINKS_PER_PAGE } from '../constants';
-import { timeDifferenceForDate } from '../utils';
+import { AUTH_TOKEN, LINKS_PER_PAGE } from "../constants";
+import { timeDifferenceForDate } from "../utils";
 import React from "react";
 import { gql, useMutation } from "@apollo/client";
 
 const VOTE_MUTATION = gql`
-  mutation VoteMutation($linkId: ID!) {
-    vote(linkId: $linkId) {
-      id
-      link {
-        id
-        votes {
-          id
-          user {
+    mutation VoteMutation($linkId: ID!) {
+        vote(linkId: $linkId) {
             id
-          }
+            link {
+                id
+                votes {
+                    id
+                    user {
+                        id
+                    }
+                }
+            }
+            user {
+                id
+            }
         }
-      }
-      user {
-        id
-      }
+    }
+`;
+
+const Link = (props) => {
+    const { link } = props;
+    const authToken = localStorage.getItem(AUTH_TOKEN);
+
+    const take = LINKS_PER_PAGE;
+    const skip = 0;
+    const orderBy = { createdAt: "desc" };
+
+    const [vote] = useMutation(VOTE_MUTATION, {
+    variables: {
+      linkId: link.id
     },
     update(cache, { data: { vote } }) {
       const { feed } = cache.readQuery({
@@ -43,25 +58,9 @@ const VOTE_MUTATION = gql`
           }
         }
       });
-
     }
-`;
+  });
 
-
-const Link = (props) => {
-    const { link } = props;
-    const authToken = localStorage.getItem(AUTH_TOKEN);
-
-    const take = LINKS_PER_PAGE;
-    const skip = 0;
-    const orderBy = { createdAt: "desc" };
-
-    const [vote] = useMutation(VOTE_MUTATION, {
-        variables: {
-          linkId: link.id
-        }
-      });
-    
     return (
         <div className="flex mt2 items-start">
             <div className="flex items-center">
