@@ -31,7 +31,6 @@ const CreateLink = () =>{
             description: formState.description,
             url: formState.url
         },
-        onCompleted: () => history.push('/'),
         update: (cache, { data: { post } }) => {
             const take = LINKS_PER_PAGE;
             const skip = 0;
