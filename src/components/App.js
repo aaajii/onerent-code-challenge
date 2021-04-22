@@ -2,6 +2,7 @@ import React from 'react';
 import CreateLink from './CreateLink';
 import Header from './Header';
 import LinkList from './LinkList';
+import Login from "./Login";
 import { Switch, Route } from 'react-router-dom';
 
 const App = () => {
@@ -16,6 +17,7 @@ const App = () => {
             path="/create"
             component={CreateLink}
           />
+          <Route exact path="/login" component={Login} />
         </Switch>
       </div>
     </div>
