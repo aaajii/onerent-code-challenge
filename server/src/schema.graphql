@@ -15,19 +15,20 @@ type Feed {
 }
 
 type Mutation {
-  post(url: String!, description: String!): Property!
+  post(street: String!, state: String!, city: String!, zip: Int!): Property!
   signup(
     email: String!
     password: String!
-    name: String!
+    firstName: String!
+    lastName: String!
   ): AuthPayload
   login(email: String!, password: String!): AuthPayload
-  vote(propertyID: ID!): Vote
+  rent(propertyId: ID!): Rent
 }
 
 type Subscription {
   newProperty: Property
-  newVote: Vote
+  newRent: Rent
 }
 
 type AuthPayload {
@@ -37,29 +38,33 @@ type AuthPayload {
 
 type User {
   id: ID!
-  name: String!
+  firstName: String!
+  lastName: String!
   email: String!
-  properties: [Property!]!
+  rents: [Rent!]!
 }
 
 type Property {
   id: ID!
-  description: String!
-  url: String!
-  postedBy: User
-  votes: [Vote!]!
+  street: String!
+  city: String!
+  state: String!
+  zip: Int!
+  renters: [Rent!]
   createdAt: DateTime!
 }
 
-type Vote {
+type Rent {
   id: ID!
   property: Property!
   user: User!
 }
 
 input PropertyOrderByInput {
-  description: Sort
-  url: Sort
+  street: Sort
+  city: Sort
+  state: Sort
+  zip: Sort
   createdAt: Sort
 }
 

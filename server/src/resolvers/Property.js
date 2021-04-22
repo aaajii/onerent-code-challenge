@@ -1,16 +1,9 @@
-function postedBy(parent, args, context) {
-  return context.prisma.property
-    .findUnique({ where: { id: parent.id } })
-    .postedBy();
-}
-
-function votes(parent, args, context) {
-  return context.prisma.property
-    .findUnique({ where: { id: parent.id } })
-    .votes();
+function renters(parent, args, context) {
+  return context.prisma.rent
+    .findMany({ where: { propertyId: parent.id } })
+    .user();
 }
 
 module.exports = {
-  postedBy,
-  votes
+  renters
 };

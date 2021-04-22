@@ -2,8 +2,10 @@ async function feed(parent, args, context, info) {
   const where = args.filter
     ? {
         OR: [
-          { description: { contains: args.filter } },
-          { url: { contains: args.filter } }
+          { street: { contains: args.filter } },
+          { city: { contains: args.filter } },
+          { state: { contains: args.filter } },
+          { zip: { contains: args.filter } },
         ]
       }
     : {};

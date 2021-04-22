@@ -3,13 +3,13 @@ const jwt = require('jsonwebtoken');
 const { APP_SECRET } = require('../utils');
 
 async function post(parent, args, context, info) {
-  const { userId } = context;
 
   const newProperty = await context.prisma.property.create({
     data: {
-      url: args.url,
-      description: args.description,
-      postedBy: { connect: { id: userId } }
+      street: args.street,
+      city: args.city,
+      state: args.state,
+      zip: args.zip
     }
   });
   context.pubsub.publish('NEW_PROPERTY', newProperty);
@@ -55,9 +55,9 @@ async function login(parent, args, context, info) {
   };
 }
 
-async function vote(parent, args, context, info) {
+async function rent(parent, args, context, info) {
   const { userId } = context;
-  const vote = await context.prisma.vote.findUnique({
+  const rent = await context.prisma.rent.findUnique({
     where: {
       propertyId_userId: {
         propertyId: Number(args.propertyId),
@@ -66,26 +66,26 @@ async function vote(parent, args, context, info) {
     }
   });
 
-  if (Boolean(vote)) {
+  if (Boolean(rent)) {
     throw new Error(
-      `Already rented property: ${args.propertyId}`
+      `You already rented this property: ${args.propertyId}`
     );
   }
 
-  const newVote = context.prisma.vote.create({
+  const newRent = context.prisma.rent.create({
     data: {
       user: { connect: { id: userId } },
       property: { connect: { id: Number(args.propertyId) } }
     }
   });
-  context.pubsub.publish('NEW_VOTE', newVote);
+  context.pubsub.publish('NEW_RENT', newRent);
 
-  return newVote;
+  return newRent;
 }
 
 module.exports = {
   post,
   signup,
   login,
-  vote
+  rent
 };

@@ -9,12 +9,12 @@ const newProperty = {
   },
 }
 
-function newVoteSubscribe(parent, args, context, info) {
-  return context.pubsub.asyncIterator("NEW_VOTE")
+function newRentSubscribe(parent, args, context, info) {
+  return context.pubsub.asyncIterator("NEW_RENT")
 }
 
-const newVote = {
-  subscribe: newVoteSubscribe,
+const newRent = {
+  subscribe: newRentSubscribe,
   resolve: payload => {
     return payload
   },
@@ -22,5 +22,5 @@ const newVote = {
 
 module.exports = {
   newProperty,
-  newVote
+  newRent
 }

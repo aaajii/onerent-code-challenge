@@ -5,7 +5,7 @@ const Mutation = require('./resolvers/Mutation');
 const Subscription = require('./resolvers/Subscription');
 const User = require('./resolvers/User');
 const Property = require('./resolvers/Property');
-const Vote = require('./resolvers/Vote');
+const Rent = require('./resolvers/Rent');
 const fs = require('fs');
 const path = require('path');
 const { getUserId } = require('./utils');
@@ -22,7 +22,7 @@ const resolvers = {
   Subscription,
   User,
   Property,
-  Vote
+  Rent
 };
 
 const server = new ApolloServer({
