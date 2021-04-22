@@ -4,7 +4,7 @@ const Query = require('./resolvers/Query');
 const Mutation = require('./resolvers/Mutation');
 const Subscription = require('./resolvers/Subscription');
 const User = require('./resolvers/User');
-const Link = require('./resolvers/Link');
+const Property = require('./resolvers/Property');
 const Vote = require('./resolvers/Vote');
 const fs = require('fs');
 const path = require('path');
@@ -21,7 +21,7 @@ const resolvers = {
   Mutation,
   Subscription,
   User,
-  Link,
+  Property,
   Vote
 };
 

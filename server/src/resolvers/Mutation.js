@@ -5,16 +5,16 @@ const { APP_SECRET } = require('../utils');
 async function post(parent, args, context, info) {
   const { userId } = context;
 
-  const newLink = await context.prisma.link.create({
+  const newProperty = await context.prisma.property.create({
     data: {
       url: args.url,
       description: args.description,
       postedBy: { connect: { id: userId } }
     }
   });
-  context.pubsub.publish('NEW_LINK', newLink);
+  context.pubsub.publish('NEW_PROPERTY', newProperty);
 
-  return newLink;
+  return newProperty;
 }
 
 async function signup(parent, args, context, info) {
@@ -59,8 +59,8 @@ async function vote(parent, args, context, info) {
   const { userId } = context;
   const vote = await context.prisma.vote.findUnique({
     where: {
-      linkId_userId: {
-        linkId: Number(args.linkId),
+      propertyId_userId: {
+        propertyId: Number(args.propertyId),
         userId: userId
       }
     }
@@ -68,14 +68,14 @@ async function vote(parent, args, context, info) {
 
   if (Boolean(vote)) {
     throw new Error(
-      `Already voted for link: ${args.linkId}`
+      `Already rented property: ${args.propertyId}`
     );
   }
 
   const newVote = context.prisma.vote.create({
     data: {
       user: { connect: { id: userId } },
-      link: { connect: { id: Number(args.linkId) } }
+      property: { connect: { id: Number(args.propertyId) } }
     }
   });
   context.pubsub.publish('NEW_VOTE', newVote);

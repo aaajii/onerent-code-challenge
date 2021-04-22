@@ -1,5 +1,5 @@
 -- CreateTable
-CREATE TABLE "Link" (
+CREATE TABLE "Property" (
     "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
     "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "description" TEXT NOT NULL,
@@ -19,9 +19,9 @@ CREATE TABLE "User" (
 -- CreateTable
 CREATE TABLE "Vote" (
     "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-    "linkId" INTEGER NOT NULL,
+    "propertyId" INTEGER NOT NULL,
     "userId" INTEGER NOT NULL,
-    FOREIGN KEY ("linkId") REFERENCES "Link" ("id") ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY ("propertyId") REFERENCES "Property" ("id") ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY ("userId") REFERENCES "User" ("id") ON DELETE CASCADE ON UPDATE CASCADE
 );
 
@@ -29,4 +29,4 @@ CREATE TABLE "Vote" (
 CREATE UNIQUE INDEX "User.email_unique" ON "User"("email");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "Vote.linkId_userId_unique" ON "Vote"("linkId", "userId");
+CREATE UNIQUE INDEX "Vote.propertyId_userId_unique" ON "Vote"("propertyId", "userId");

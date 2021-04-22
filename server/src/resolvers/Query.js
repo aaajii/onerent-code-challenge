@@ -8,18 +8,18 @@ async function feed(parent, args, context, info) {
       }
     : {};
 
-  const links = await context.prisma.link.findMany({
+  const properties = await context.prisma.property.findMany({
     where,
     skip: args.skip,
     take: args.take,
     orderBy: args.orderBy
   });
 
-  const count = await context.prisma.link.count({ where });
+  const count = await context.prisma.property.count({ where });
 
   return {
     id: 'main-feed',
-    links,
+    properties,
     count
   };
 }

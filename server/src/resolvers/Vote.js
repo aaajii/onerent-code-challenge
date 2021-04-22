@@ -1,7 +1,7 @@
-function link(parent, args, context) {
+function property(parent, args, context) {
   return context.prisma.vote
     .findUnique({ where: { id: parent.id } })
-    .link();
+    .property();
 }
 
 function user(parent, args, context) {
@@ -11,6 +11,6 @@ function user(parent, args, context) {
 }
 
 module.exports = {
-  link,
+  property,
   user
 };
