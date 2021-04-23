@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import { useMutation, gql } from "@apollo/client";
 import { useHistory } from "react-router";
-import { LINKS_PER_PAGE } from '../constants';
+import { PROPERTIES_PER_PAGE } from '../constants';
 import { FEED_QUERY } from './PropertyList';
 
 const CREATE_LINK_MUTATION = gql`
@@ -32,7 +32,7 @@ const CreateLink = () =>{
             url: formState.url
         },
         update: (cache, { data: { post } }) => {
-            const take = LINKS_PER_PAGE;
+            const take = PROPERTIES_PER_PAGE;
             const skip = 0;
             const orderBy = { createdAt: 'desc' };
       

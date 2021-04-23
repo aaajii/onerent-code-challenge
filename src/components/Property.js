@@ -1,16 +1,19 @@
-import { AUTH_TOKEN, LINKS_PER_PAGE } from "../constants";
+import { AUTH_TOKEN, PROPERTIES_PER_PAGE } from "../constants";
 import { timeDifferenceForDate } from "../utils";
 import React from "react";
 import { gql, useMutation } from "@apollo/client";
 import { FEED_QUERY } from "./PropertyList";
 
-const VOTE_MUTATION = gql`
-    mutation VoteMutation($linkId: ID!) {
-        vote(linkId: $linkId) {
+const RENT_MUTATION = gql`
+    mutation VoteMutation($propertyId: ID!) {
+        rent(propertyId: $propertyId) {
             id
-            link {
+            property {
                 id
-                votes {
+                street
+                city
+                state
+                renters {
                     id
                     user {
                         id
@@ -24,19 +27,19 @@ const VOTE_MUTATION = gql`
     }
 `;
 
-const Link = (props) => {
-    const { link } = props;
+const Property = (props) => {
+    const { property } = props;
     const authToken = localStorage.getItem(AUTH_TOKEN);
-
-    const take = LINKS_PER_PAGE;
+    console.log(property)
+    const take = PROPERTIES_PER_PAGE;
     const skip = 0;
     const orderBy = { createdAt: "desc" };
 
-    const [vote] = useMutation(VOTE_MUTATION, {
+    const [rent] = useMutation(RENT_MUTATION, {
     variables: {
-      linkId: link.id
+      propertyId: property.id
     },
-    update(cache, { data: { vote } }) {
+    update(cache, { data: { rent } }) {
       const { feed } = cache.readQuery({
         query: FEED_QUERY,
         variables: {
@@ -46,21 +49,21 @@ const Link = (props) => {
           }
       });
 
-      const updatedLinks = feed.links.map((feedLink) => {
-        if (feedLink.id === link.id) {
+      const updatedProperties = feed.properties.map((feedProperty) => {
+        if (feedProperty.id === property.id) {
           return {
-            ...feedLink,
-            votes: [...feedLink.votes, vote]
+            ...feedProperty,
+            renters: [...feedProperty.renters, rent]
           };
         }
-        return feedLink;
+        return feedProperty;
       });
 
       cache.writeQuery({
         query: FEED_QUERY,
         data: {
           feed: {
-            links: updatedLinks
+            properties: updatedProperties
           }
         }
       });
@@ -75,21 +78,20 @@ const Link = (props) => {
                     <div
                         className="ml1 gray f11"
                         style={{ cursor: "pointer" }}
-                        onClick={vote}
+                        onClick={rent}
                     >
-                        ▲
+                        Rent
                     </div>
                 )}
             </div>
             <div className="ml1">
                 <div>
-                    {link.description} ({link.url})
+                    {property.street} ({property.city})
                 </div>
                 {authToken && (
                     <div className="f6 lh-copy gray">
-                        {link.votes.length} votes | by{" "}
-                        {link.postedBy ? link.postedBy.name : "Unknown"}{" "}
-                        {timeDifferenceForDate(link.createdAt)}
+                        {property.renters.length} renters |
+                        {timeDifferenceForDate(property.createdAt)}
                     </div>
                 )}
             </div>
@@ -97,4 +99,4 @@ const Link = (props) => {
     );
 };
 
-export default Link;
+export default Property;
