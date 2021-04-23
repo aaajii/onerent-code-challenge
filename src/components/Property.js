@@ -75,7 +75,7 @@ const Property = (props) => {
                 <span className="gray">{props.index + 1}.</span>
                 {authToken && (
                     <button
-                        className="ml1 gray f11"
+                        className="ml1 f11"
                         style={{ cursor: "pointer" }}
                         onClick={rent}
                     >
