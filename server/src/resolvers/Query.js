@@ -4,8 +4,7 @@ async function feed(parent, args, context, info) {
         OR: [
           { street: { contains: args.filter } },
           { city: { contains: args.filter } },
-          { state: { contains: args.filter } },
-          { zip: { contains: args.filter } },
+          { state: { contains: args.filter } }
         ]
       }
     : {};
