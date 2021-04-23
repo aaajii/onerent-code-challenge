@@ -1,10 +1,10 @@
 import React from 'react';
 import Header from './Header';
-import LinkList from './PropertyList';
 import Login from "./Login";
 import Search from "./Search";
 import { Switch, Route } from 'react-router-dom';
 import CreateProperty from './CreateProperty';
+import PropertyList from './PropertyList';
 
 const App = () => {
   return (
@@ -12,7 +12,7 @@ const App = () => {
       <Header />
       <div className="ph3 pv1 background-gray">
         <Switch>
-          <Route exact path="/" component={LinkList} />
+          <Route exact path="/" component={PropertyList} />
           <Route
             exact
             path="/create"

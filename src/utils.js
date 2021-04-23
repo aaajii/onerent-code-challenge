@@ -4,7 +4,6 @@ function timeDifference(current, previous) {
     const milliSecondsPerDay = milliSecondsPerHour * 24;
     const milliSecondsPerMonth = milliSecondsPerDay * 30;
     const milliSecondsPerYear = milliSecondsPerDay * 365;
-    console.log(current, previous)
     const elapsed = current - previous;
 
     if (elapsed < milliSecondsPerMinute / 3) {

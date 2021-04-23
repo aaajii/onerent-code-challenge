@@ -30,7 +30,6 @@ const RENT_MUTATION = gql`
 const Property = (props) => {
     const { property } = props;
     const authToken = localStorage.getItem(AUTH_TOKEN);
-    console.log(property)
     const take = PROPERTIES_PER_PAGE;
     const skip = 0;
     const orderBy = { createdAt: "desc" };

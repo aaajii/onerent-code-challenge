@@ -46,7 +46,6 @@ const Login = () => {
     },
     onCompleted: ({ login }) => {
       localStorage.setItem(AUTH_TOKEN, login.token);
-      console.log(localStorage.getItem(AUTH_TOKEN))
       history.push('/');
     }
   });
