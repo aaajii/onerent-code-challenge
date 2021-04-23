@@ -86,12 +86,12 @@ const Property = (props) => {
             </div>
             <div className="ml1">
                 <div>
-                    {property.street} ({property.city})
+                    {property.street} ({property.city}), {property.state} {property.zip}
                 </div>
                 {authToken && (
                     <div className="f6 lh-copy gray">
                         {property.renters.length} renters |
-                        {timeDifferenceForDate(property.createdAt)}
+                        posted {timeDifferenceForDate(property.createdAt)}
                     </div>
                 )}
             </div>

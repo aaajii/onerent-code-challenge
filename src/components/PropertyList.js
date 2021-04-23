@@ -1,5 +1,5 @@
 import React from "react";
-import Link from "./Property";
+import Property from "./Property";
 import { useQuery, gql } from "@apollo/client";
 import { PROPERTIES_PER_PAGE } from "../constants";
 import { useHistory } from "react-router";
@@ -13,6 +13,8 @@ export const FEED_QUERY = gql`
                 street
                 city
                 state
+                zip
+                createdAt
                 renters {
                     id
                     user {
@@ -111,7 +113,7 @@ const PropertyList = () => {
             {data && (
                 <>
                     {data.feed.properties.map((property, index) => (
-                        <Link key={property.id} property={property} index={index} />
+                        <Property key={property.id} property={property} index={index} />
                     ))}
                 </>
             )}

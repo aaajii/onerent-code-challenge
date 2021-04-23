@@ -4,32 +4,40 @@ import { useHistory } from "react-router";
 import { PROPERTIES_PER_PAGE } from '../constants';
 import { FEED_QUERY } from './PropertyList';
 
-const CREATE_LINK_MUTATION = gql`
+const CREATE_PROPERTY_MUTATION = gql`
     mutation PostMutation(
-        $description: String!
-        $url: String!
+        $street: String!
+        $city: String!
+        $state: String!
+        $zip: Int!
     ){
-        post(description: $description, url: $url){
+        post(street: $street, city: $city, state: $state, zip: $zip){
             id
             createdAt
-            url
-            description
+            street
+            city
+            state
+            zip
         }
     }
 `;
 
-const CreateLink = () =>{
+const CreateProperty = () =>{
     const [formState, setFormState] = useState({
-        description: '',
-        url: ''
+        street: '',
+        city: '',
+        state: '',
+        zip: ''
     });
 
     const history = useHistory();
-
-    const [createLink] = useMutation(CREATE_LINK_MUTATION, {
+    
+    const [createProperty] = useMutation(CREATE_PROPERTY_MUTATION, {
         variables: {
-            description: formState.description,
-            url: formState.url
+            street: formState.street,
+            city: formState.city,
+            state: formState.state,
+            zip: Number(formState.zip),
         },
         update: (cache, { data: { post } }) => {
             const take = PROPERTIES_PER_PAGE;
@@ -49,7 +57,7 @@ const CreateLink = () =>{
               query: FEED_QUERY,
               data: {
                 feed: {
-                  links: [post, ...data.feed.links]
+                  properties: [post, ...data.feed.properties]
                 }
               },
               variables: {
@@ -59,7 +67,7 @@ const CreateLink = () =>{
               }
             });
         },
-        onCompleted: () => history.push('/new/1')
+        onCompleted: () => history.push('/')
     });
 
     return (
@@ -67,33 +75,61 @@ const CreateLink = () =>{
             <form
                 onSubmit={e => {
                     e.preventDefault();
-                    createLink();
+                    createProperty();
                 }
                 }>
                     <div className="flex flex-column mt3">
+                    <label> Street </label>
                     <input
                         className="mb2"
-                        value={formState.description}
+                        value={formState.street}
                         onChange={(e) =>
                         setFormState({
                             ...formState,
-                            description: e.target.value
+                            street: e.target.value
                         })
                         }
                         type="text"
-                        placeholder="A description for the link"
+                        placeholder="Enter the street name..."
                     />
+                    <label> City </label>
                     <input
                         className="mb2"
-                        value={formState.url}
+                        value={formState.city}
                         onChange={(e) =>
                         setFormState({
                             ...formState,
-                            url: e.target.value
+                            city: e.target.value
                         })
                         }
                         type="text"
-                        placeholder="The URL for the link"
+                        placeholder="Enter the city name..."
+                    />
+                    <label> State </label>
+                    <input
+                        className="mb2"
+                        value={formState.state}
+                        onChange={(e) =>
+                        setFormState({
+                            ...formState,
+                            state: e.target.value
+                        })
+                        }
+                        type="text"
+                        placeholder="Enter the state name..."
+                    />
+                    <label> ZIP Code </label>
+                    <input
+                        className="mb2"
+                        value={formState.zip}
+                        onChange={(e) =>
+                        setFormState({
+                            ...formState,
+                            zip: e.target.value
+                        })
+                        }
+                        type="text"
+                        placeholder="Enter the ZIP code..."
                     />
                     </div>
                     <button type="submit">Submit</button>
@@ -102,4 +138,4 @@ const CreateLink = () =>{
     )
 };
 
-export default CreateLink;
+export default CreateProperty;

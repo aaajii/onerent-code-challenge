@@ -1,10 +1,10 @@
 import React from 'react';
-import CreateLink from './CreateProperty';
 import Header from './Header';
 import LinkList from './PropertyList';
 import Login from "./Login";
 import Search from "./Search";
 import { Switch, Route } from 'react-router-dom';
+import CreateProperty from './CreateProperty';
 
 const App = () => {
   return (
@@ -16,7 +16,7 @@ const App = () => {
           <Route
             exact
             path="/create"
-            component={CreateLink}
+            component={CreateProperty}
           />
           <Route exact path="/login" component={Login} />
           <Route exact path="/search" component={Search} />
