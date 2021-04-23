@@ -5,7 +5,7 @@ import { gql, useMutation } from "@apollo/client";
 import { FEED_QUERY } from "./PropertyList";
 
 const RENT_MUTATION = gql`
-    mutation VoteMutation($propertyId: ID!) {
+    mutation RentMutation($propertyId: ID!) {
         rent(propertyId: $propertyId) {
             id
             property {
@@ -74,13 +74,13 @@ const Property = (props) => {
             <div className="flex items-center">
                 <span className="gray">{props.index + 1}.</span>
                 {authToken && (
-                    <div
+                    <button
                         className="ml1 gray f11"
                         style={{ cursor: "pointer" }}
                         onClick={rent}
                     >
                         Rent
-                    </div>
+                    </button>
                 )}
             </div>
             <div className="ml1">
@@ -88,9 +88,21 @@ const Property = (props) => {
                     {property.street} ({property.city}), {property.state} {property.zip}
                 </div>
                 {authToken && (
+                    <div>
                     <div className="f6 lh-copy gray">
                         {property.renters.length} renters |
                         posted {timeDifferenceForDate(property.createdAt)}
+                        <p>Renters:</p>
+                    </div>
+                    
+                    <ul>
+                      
+                      {property.renters.map(renter=>(
+                        <li>
+                          {renter.user.lastName}, {renter.user.firstName}
+                        </li>))
+                      }
+                    </ul>
                     </div>
                 )}
             </div>

@@ -19,6 +19,8 @@ export const FEED_QUERY = gql`
                     id
                     user {
                         id
+                        firstName
+                        lastName
                     }
                 }
             }
@@ -79,9 +81,7 @@ const PropertyList = () => {
     const pageIndexParams = history.location.pathname.split("/");
     const page = parseInt(pageIndexParams[pageIndexParams.length - 1]);
 
-    const pageIndex = page ? (page - 1) * PROPERTIES_PER_PAGE : 0;
-
-    const { data, loading, error, subscribeToMore } = useQuery(FEED_QUERY, {
+    const { data, subscribeToMore } = useQuery(FEED_QUERY, {
         variables: getQueryVariables(isNewPage, page),
     });
 
