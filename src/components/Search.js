@@ -34,7 +34,14 @@ const Search = () => {
                 Search
                 <input
                     type="text"
-                    onChange={(e) => setSearchFilter(e.target.value)}
+                    onChange={(e) => {
+                        setSearchFilter(e.target.value);
+
+                        // This is the closest I could get to an "autocomplete"
+                        executeSearch({
+                            variables: { filter: searchFilter },
+                        });
+                    }}
                 />
                 <button
                     onClick={() =>
