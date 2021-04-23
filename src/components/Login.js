@@ -7,12 +7,14 @@ const SIGNUP_MUTATION = gql`
   mutation SignupMutation(
     $email: String!
     $password: String!
-    $name: String!
+    $firstName: String!
+    $lastName: String!
   ) {
     signup(
       email: $email
       password: $password
-      name: $name
+      firstName: $firstName
+      lastName: $lastName
     ) {
       token
     }
@@ -36,7 +38,8 @@ const Login = () => {
     login: true,
     email: '',
     password: '',
-    name: ''
+    firstName: '',
+    lastName: ''
   });
 
   const [login] = useMutation(LOGIN_MUTATION, {
@@ -52,7 +55,8 @@ const Login = () => {
   
   const [signup] = useMutation(SIGNUP_MUTATION, {
     variables: {
-      name: formState.name,
+      firstName: formState.firstName,
+      lastName: formState.lastName,
       email: formState.email,
       password: formState.password
     },
@@ -70,15 +74,28 @@ const Login = () => {
       <div className="flex flex-column">
         {!formState.login && (
           <input
-            value={formState.name}
+            value={formState.firstName}
             onChange={(e) =>
               setFormState({
                 ...formState,
-                name: e.target.value
+                firstName: e.target.value
               })
             }
             type="text"
-            placeholder="Your name"
+            placeholder="Your First Name"
+          />
+        )}
+        {!formState.login && (
+          <input
+            value={formState.lastName}
+            onChange={(e) =>
+              setFormState({
+                ...formState,
+                lastName: e.target.value
+              })
+            }
+            type="text"
+            placeholder="Your Last Name"
           />
         )}
         <input

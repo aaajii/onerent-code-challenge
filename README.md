@@ -1,3 +1,5 @@
+Created by: Jimuel William P. Banawan
+
 # About this project
 
 This project was created with React, Apollo, GraphQl, and Prisma
@@ -62,3 +64,4 @@ These are the potential bugs that I think might happen in the application. I wou
 - The search function does not have an Autocomplete feature, but it searches as you type on the field. This might cause some bugs, specially if you add a number of properties.
 - Data validation may not be handled very well
 - Errors are usually thrown as feedback and does not have a component or a display of its own
+- The "Feed" query may fail to destructure after "Renting" a property
