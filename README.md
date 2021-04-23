@@ -65,3 +65,6 @@ These are the potential bugs that I think might happen in the application. I wou
 - Data validation may not be handled very well
 - Errors are usually thrown as feedback and does not have a component or a display of its own
 - The "Feed" query may fail to destructure after "Renting" a property
+
+
+I recognize that I have a lot more things to learn if I want to make my code better with this tech stack.
